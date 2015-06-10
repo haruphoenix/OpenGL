@@ -1,0 +1,32 @@
+/****************************************************************
+ * Graphical Model Data (GMData) - Holds the graphic data of a
+ * Game Object
+ ****************************************************************/
+#ifndef ARC_GM_DATA
+#define ARC_GM_DATA
+
+#include <GL/glew.h>
+
+class ArcGMData{
+
+ public:
+  ArcGMData();
+  ArcGMData(const char* filename);
+  ~ArcGMData();
+  void    loadData(const char* filename);
+  float*  getVertices()     { return mVertices;    };
+  GLuint* getIndices()      { return mIndices;     };
+  int     getNumVertices()  { return mNumVertices; };
+  int     getNumIndices()   { return mNumIndices;  };
+  int     getID()           { return mID;          };
+  void    setID(int ID)     { mID = ID;            };
+
+ private:
+  float*  mVertices;
+  GLuint* mIndices;
+  int     mNumVertices;
+  int     mNumIndices;
+  int     mID;
+};
+
+#endif

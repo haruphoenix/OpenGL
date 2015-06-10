@@ -1,0 +1,152 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "ArcShaderProgram.h"
+
+
+/*******************************************************
+ * Constructor for the Shader Program
+ *******************************************************/
+ArcShaderProgram::ArcShaderProgram(){
+}  
+
+/*******************************************************
+ * Destructor for the Shader Program
+ *******************************************************/
+ArcShaderProgram::~ArcShaderProgram(){
+  GLenum ErrorCheckValue = glGetError();
+  
+  // Tell OpenGL to stop using the program
+  glUseProgram(0);
+
+  GLuint shader;
+  while (!mShaders.empty()){
+    shader = mShaders.back();
+    mShaders.pop_back();
+
+    // Detach Shader
+    glDetachShader(mProgramId, shader);
+
+    // Delete Shader
+    glDeleteShader(shader);
+  }
+
+  // Delete the Shader Program
+  glDeleteProgram(mProgramId);
+
+  // Check for Errors
+  ErrorCheckValue = glGetError();
+  if (ErrorCheckValue != GL_NO_ERROR){
+    fprintf(stderr, "ERROR: Could not destroy the shaders: %s \n",
+	    gluErrorString(ErrorCheckValue));
+    exit(-1);
+  }
+}  
+
+/*******************************************************
+ * Create Shader Program
+ *******************************************************/
+void ArcShaderProgram::initialize(){
+  mProgramId = glCreateProgram();
+}  
+
+/*******************************************************
+ * Adds a vertex shader to the program
+ *******************************************************/
+void ArcShaderProgram::addVertexShader(const char* filename){
+  GLuint shader = loadShader(filename, GL_VERTEX_SHADER);
+  glAttachShader(mProgramId, shader);
+  mShaders.push_back(shader);
+}
+
+/*******************************************************
+ * Adds a fragment shader to the program
+ *******************************************************/
+void ArcShaderProgram::addFragmentShader(const char* filename){
+  GLuint shader = loadShader(filename, GL_FRAGMENT_SHADER);
+  glAttachShader(mProgramId, shader);
+  mShaders.push_back(shader);
+}
+
+
+/*******************************************************
+ * Links the shader program with all of the shaders
+ *******************************************************/
+void ArcShaderProgram::link(){
+  glLinkProgram(mProgramId);
+}
+
+/*******************************************************
+ * Use this shader program
+ *******************************************************/
+void ArcShaderProgram::use(){
+
+  GLenum ErrorCheckValue = glGetError();
+  
+  // Use Program - This program remains active until another is used
+  glUseProgram(mProgramId);
+  // Check for Errors
+  ErrorCheckValue = glGetError();
+  if (ErrorCheckValue != GL_NO_ERROR){
+    fprintf(stderr, "ERROR: Could not create the shaders: %s \n",
+	    gluErrorString(ErrorCheckValue));
+    exit(-1);
+  }
+}
+
+/*******************************************************
+ * A simple way to get a shader from a file
+ *******************************************************/
+GLuint ArcShaderProgram::loadShader(const char* filename, GLenum shader_type){
+  GLuint shader_id = 0;
+  FILE* file;
+  long file_size = -1;
+  char* glsl_source;
+ 
+
+  if (NULL != (file = fopen(filename, "rb")) &&
+    0 == fseek(file, 0, SEEK_END) &&
+    -1 != (file_size = ftell(file)))
+  {
+    rewind(file);
+    
+    if (NULL != (glsl_source = (char*)malloc(file_size + 1)))
+    {
+      if (file_size == (long)fread(glsl_source, sizeof(char), file_size, file))
+      {
+        glsl_source[file_size] = '\0';
+ 
+        if (0 != (shader_id = glCreateShader(shader_type)))
+        {
+          glShaderSource(shader_id, 1, (const GLchar**)&glsl_source, NULL);
+          glCompileShader(shader_id);
+	  // Check for errors
+	  GLenum ErrorCheckValue = glGetError();
+	  if (ErrorCheckValue != GL_NO_ERROR){
+	    fprintf(stderr, "ERROR: Could not read shader program: %s\n", 
+		    gluErrorString(ErrorCheckValue));
+	    exit(-1);
+	  }
+        }
+        else
+          fprintf(stderr, "ERROR: Could not create a shader.\n");
+      }
+      else
+        fprintf(stderr, "ERROR: Could not read file %s\n", filename);
+ 
+      free(glsl_source);
+    }
+    else
+      fprintf(stderr, "ERROR: Could not allocate %li bytes.\n", file_size);
+ 
+    fclose(file);
+  }
+  else
+  {
+    if (NULL != file)
+      fclose(file);
+    fprintf(stderr, "ERROR: Could not open file %s\n", filename);
+  }
+ 
+  return shader_id;
+}

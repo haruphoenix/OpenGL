@@ -1,0 +1,168 @@
+/*****************************************************
+ * Implementation of the Control Data
+ *****************************************************/
+#include "ArcControlData.h"
+#include <iostream> // for debugging
+
+/*****************************************************
+ * Constructor for control data
+ *****************************************************/
+ArcControlData::ArcControlData(){
+  mMouseX = 0;
+  mMouseY = 0;
+  mSizeX  = 0;
+  mSizeY  = 0;
+  mMouseLeft   = false;
+  mMouseMiddle = false;
+  mMouseRight  = false;
+  mQuit        = false;
+  mResize      = false;
+  mTrap        = false;
+  mMouseChange = false;
+  mKeyIndex    = mKeys.begin();
+}
+
+/******************************************************
+ * Sets the coordinates of the mouse
+ ******************************************************/
+void ArcControlData::setMouse(int x, int y)
+{
+  mMouseX = x;
+  mMouseY = y;
+  mMouseChange = true;
+}
+
+/******************************************************
+ * Sets the new window dimensions
+ ******************************************************/
+void ArcControlData::setSize(int x, int y)
+{
+  mSizeX = x;
+  mSizeY = y;
+  mResize = true;
+}
+
+/******************************************************
+ * Set the mouse left button (pressed down or not)
+ ******************************************************/
+void ArcControlData::setMouseLeft(bool down)
+{
+  mMouseLeft = down;
+}
+
+/******************************************************
+ * Set the mouse middle button (pressed down or not)
+ ******************************************************/
+void ArcControlData::setMouseMiddle(bool down)
+{
+  mMouseMiddle = down;
+}
+
+/******************************************************
+ * Set the mouse right button (pressed down or not)
+ ******************************************************/
+void ArcControlData::setMouseRight(bool down)
+{
+  mMouseRight = down;
+}
+
+/******************************************************
+ * Sets a key up or down
+ ******************************************************/
+void ArcControlData::setKey(char key, bool down)
+{
+  if (down) mKeys.insert(key);
+  else {
+    mKeys.erase(key);
+    mKeyIndex = mKeys.begin(); // Don't forget to reset iterator
+  }
+}
+
+/******************************************************
+ * Mark true if program has been exited
+ ******************************************************/
+void ArcControlData::setQuit(bool quit)
+{
+  mQuit = quit;
+}
+
+/******************************************************
+ * Returns true if program has been exited
+ ******************************************************/
+bool ArcControlData::quit()
+{
+  return mQuit;
+}
+
+/******************************************************
+ * Gets the coordinates of the mouse (By Reference)
+ ******************************************************/
+bool ArcControlData::getMouse(int* x, int* y)
+{
+  *x = mMouseX;
+  *y = mMouseY;
+  if (mMouseChange){
+    mMouseChange = false;
+    return true;
+  }
+  return false;
+}
+
+/******************************************************
+ * Returns whether or not the mouse left button is 
+ * pressed
+ ******************************************************/
+bool ArcControlData::getMouseLeft()
+{
+  return mMouseLeft;
+}
+
+/******************************************************
+ * Returns whether or not the mouse middle button is 
+ * pressed
+ ******************************************************/
+bool ArcControlData::getMouseMiddle()
+{
+  return mMouseMiddle;
+}
+
+
+/******************************************************
+ * Returns whether or not the mouse right button is 
+ * pressed
+ ******************************************************/
+bool ArcControlData::getMouseRight()
+{
+  return mMouseRight;
+}
+
+#include <iostream>
+
+/******************************************************
+ * Gets the next key pressed down. Returns '\0' at the
+ * end of the list.
+ ******************************************************/
+char ArcControlData::getNextKey()
+{
+  if (mKeyIndex == mKeys.end()){
+    mKeyIndex = mKeys.begin();
+    return '\0';
+  }
+  return *mKeyIndex++;
+}
+
+/******************************************************
+ * Returns true if resize has occured. Values are
+ * updated by reference
+ ******************************************************/
+bool ArcControlData::getSize(int* x, int* y)
+{
+  *x = mSizeX;
+  *y = mSizeY;
+  if (mResize){
+    mResize = false;
+    return true;
+  }
+  return false;
+}
+

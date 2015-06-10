@@ -1,0 +1,22 @@
+#ifndef ARC_SHADER_PROGRAM
+#define ARC_SHADER_PROGRAM
+
+#include <GL/glew.h>
+#include <list>
+
+class ArcShaderProgram{
+ public:
+  ArcShaderProgram();
+  ~ArcShaderProgram();
+  void initialize();
+  void addVertexShader(const char* filename);
+  void addFragmentShader(const char* filename);
+  void link();
+  void use();
+ private:
+  GLuint loadShader(const char* filename, GLenum shader_type);
+  std::list<GLuint> mShaders;
+  GLuint mProgramId;
+};
+
+#endif

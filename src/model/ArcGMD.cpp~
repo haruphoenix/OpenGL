@@ -1,0 +1,119 @@
+/****************************************************************
+ * Graphical Model Data (GMD) - Holds the graphic data of a
+ * Game Object
+ ****************************************************************/
+#include "ArcGMD.h"
+#include <fstream>
+#include <iostream> // Debug
+#include <vector>
+#include <string>
+
+/****************************************************************
+ * General Constructor. 
+ ****************************************************************/
+ArcGMD::ArcGMD()
+{
+  mVertices = 0;
+  mIndices  = 0;
+  mNumVertices = 0;
+  mNumIndices  = 0;
+}
+
+/****************************************************************
+ * Constructor. Loads graphic data from a file 
+ ****************************************************************/
+ArcGMD::ArcGMD(const char* filename)
+{
+  mVertices = 0;
+  mIndices = 0;
+  mNumVertices = 0;
+  mNumIndices = 0;
+  loadData(filename);
+}
+
+
+/****************************************************************
+ * Loads graphic data from a file
+ ****************************************************************/
+void ArcGMD::loadData(const char* filename)
+{
+  //std::cout << "Load Data\n";
+  // Delete old data
+  //std::cout << "Delete Old Data\n";
+  if (mVertices)
+    delete mVertices;
+  if (mIndices)
+    delete mIndices;
+
+  // Open File
+  //std::cout << "Open File " << filename << std::endl;
+  std::ifstream fin;
+  //std::cout << "Stream Created\n";
+  fin.open(filename); // Fails (Memory Corruption Detected Here)
+  //std::cout << "Attempted to open file\n";
+  if (fin.fail()){
+    //std::cout << "Failed to open " << filename << std::endl;
+    return;
+  }
+
+  // Get Vertices
+  //std::cout << "Get Vertices\n";
+  fin >> mNumVertices;
+  mVertices = new float[mNumVertices * 8];
+  for (int i = 0; i < mNumVertices * 8; i++)
+    fin >> mVertices[i];
+
+  // Get Material Data
+  //std::cout << "Get Material Data\n";
+  fin >> mNumMaterials;
+  int offset = 0;
+  ArcGraphicController temp;
+  ArcTextureNameSet textures;
+  for (int i = 0; i < mNumMaterials; i++){
+    //std::cout << "Read Offset/Indices\n";
+    // Calculate Bounds
+    temp.offset = offset;
+    fin >> temp.numIndices;
+    offset += temp.numIndices;
+    // Read Materials
+    //std::cout << "Read Materials\n";
+    for (int i = 0; i < 10; i++){
+      fin >> temp.material[i];
+    }
+    // Read Texture Files
+    //std::cout << "Read Textures\n";
+    fin >> textures.Ka;
+    fin >> textures.Kd;
+    fin >> textures.Ks;
+    //std::cout << "Fini\n";
+    //std::cout << "Textures:\n";
+    //std::cout << "Ambient Texture: " << textures.Ka << std::endl;
+    //std::cout << "Diffuse Texture: " << textures.Kd << std::endl;
+    //std::cout << "Specular Texture: " << textures.Ks << std::endl;
+    mTexSet.push_back(textures);
+    mSet.push_back(temp);
+  }
+
+  std::cout << "Set size is " << mSet.size() << std::endl;
+
+  // Get Indices
+  fin >> mNumIndices;
+  mIndices = new GLuint[mNumIndices];
+  for (int i = 0; i < mNumIndices; i++)
+    fin >> mIndices[i];
+
+  // Close File
+  fin.close();
+  //std::cout << "Finish Loading Data\n";
+}
+
+/****************************************************************
+ * Destructor. Deletes Data
+ ****************************************************************/
+ArcGMD::~ArcGMD()
+{
+  if (mVertices)
+    delete mVertices;
+  if (mIndices)
+    delete mIndices;
+}

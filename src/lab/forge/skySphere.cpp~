@@ -1,0 +1,87 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <cstdlib>
+
+using namespace std;
+
+int main(int argc, char** argv)
+{
+  ofstream fout;
+  fout.open("src/model/models/skySphere.d");
+  if (fout.fail()) return 1;
+
+  int latitude   = 4; // Left and right
+  int longitude  = 5; // Up and Down
+  int numVertices = 2 + ((longitude - 2) * latitude);
+  fout << fixed << numVertices << endl;
+
+  // Top Vertex
+  fout << 0 << " " << 1 << " " << 0 << " 1    0 0 1 0\n";
+
+  float Pi = 3.1415926535;
+  float TwoPi = 3.1415926535 * 2;
+
+  // For each longitude (y level)
+  for (int lon = 1; lon < longitude - 1; lon++){
+    //cout << lon << "/" << longitude - 1 << endl;
+    float a = (float)lon * Pi / ((float)longitude - 1);
+    //cout << fixed << a << endl;
+    float y = cos(a);
+    //cout << y << endl;
+
+    // for each latitude (x z level)
+    for (int lat = 0; lat < latitude; lat++){
+
+      float b = ((float)lat * TwoPi / (float)latitude);
+      // Width
+      float x = cos(b) * sin(a);
+      // Depth
+      float z = sin(b) * sin(a);
+
+      fout << x << " " << y << " " << z << " 1.0    "
+	   << 0 << " " << 0 << " " << 1 << " " << 
+	(float)((longitude - 1) - lon) / ((float)longitude - 1) << endl;
+    }
+  }
+
+  // Bottom Vertex
+  fout << 0 << " " << -1 << " " << 0 << " 1    0 0 1 1\n";
+
+  int numIndices = (2 * latitude) + ((longitude - 2) * latitude);
+  // Indices
+  fout << numIndices << endl;
+  // top
+  for (int i = 0; i < latitude; i++){
+    int b = (i + 1) % (latitude + 1);
+    int a = (i + 2) % (latitude + 1);
+    if (a == 0) { a = 1; };
+    fout << 0 << " " << a << " " << b << endl;
+  }
+
+  // Sides
+  for (int i = 1; i < numVertices - latitude - 1; i++){
+    int a = i;
+    int b = (i + 1) + (!((i) % latitude) * -latitude);
+    int c = (i + latitude) % (numVertices - 1);
+    if (!c) c = 1;
+    fout << a << " " << b << " " << c << endl;
+    int m = a;
+    a = b;
+    b = (m + latitude + 1);
+    if ((b - 1) % latitude == 0) b -= latitude;
+    fout << a << " " << b << " " << c << endl;
+  }
+
+  // bottom
+  for (int i = 0; i < latitude; i++){
+    int n = numVertices - i - 1;
+    int a = (n - 2);
+    int b = (n - 1);
+    if (a < numVertices - latitude - 1) a = numVertices - 2;
+    fout << numVertices - 1 << " " << a << " " << b << endl;
+  }
+
+  fout.close();
+  return 0;
+}

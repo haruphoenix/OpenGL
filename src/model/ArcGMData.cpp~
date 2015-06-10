@@ -1,0 +1,75 @@
+/****************************************************************
+ * Graphical Model Data (GMData) - Holds the graphic data of a
+ * Game Object
+ ****************************************************************/
+#include "ArcGMData.h"
+#include <fstream>
+
+/****************************************************************
+ * General Constructor. 
+ ****************************************************************/
+ArcGMData::ArcGMData()
+{
+  mVertices = 0;
+  mIndices  = 0;
+  mNumVertices = 0;
+  mNumIndices  = 0;
+}
+
+/****************************************************************
+ * Constructor. Loads graphic data from a file 
+ ****************************************************************/
+ArcGMData::ArcGMData(const char* filename)
+{
+  mVertices = 0;
+  mIndices = 0;
+  mNumVertices = 0;
+  mNumIndices = 0;
+  loadData(filename);
+}
+
+#include <iostream>
+
+/****************************************************************
+ * Loads graphic data from a file
+ ****************************************************************/
+void ArcGMData::loadData(const char* filename)
+{
+  // Delete old data
+  if (mVertices)
+    delete mVertices;
+  if (mIndices)
+    delete mIndices;
+
+  // Open File
+  std::ifstream fin;
+  fin.open(filename);
+  if (fin.fail())
+    return;
+
+  // Get Vertices
+  fin >> mNumVertices;
+  mVertices = new float[mNumVertices * 8];
+  for (int i = 0; i < mNumVertices * 8; i++)
+    fin >> mVertices[i];
+
+  // Get Indices
+  fin >> mNumIndices;
+  mIndices = new int[mNumIndices];
+  for (int i = 0; i < mNumIndices; i++)
+    fin >> mIndices[i];
+
+  // Close File
+  fin.close();
+}
+
+/****************************************************************
+ * Destructor. Deletes Data
+ ****************************************************************/
+ArcGMData::~ArcGMData()
+{
+  if (mVertices)
+    delete mVertices;
+  if (mIndices)
+    delete mIndices;
+}

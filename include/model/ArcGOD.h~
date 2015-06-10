@@ -1,0 +1,41 @@
+/******************************************************************
+ * Graphic Object Data
+ * Data describes a specific game object
+ * Includes the graphic model ID and a transform matrix
+ ******************************************************************/
+#ifndef ARC_GOD
+#define ARC_GOD
+
+#include <GL/glew.h>
+#include "ArcMath.h"
+
+// ID set describing location of data on GPU
+struct ArcIDSet{
+  GLuint VertexVBO;
+  GLuint IBO;
+};
+
+struct ArcGraphicController{
+  GLuint texture;     // Texture
+  int offset;         // Indices
+  int numIndices;     // Indices
+  float material[10]; // Material
+};
+
+#include <vector>
+typedef std::vector<ArcGraphicController> ArcGC;
+
+// Contains main ID (VAO), and num Indices -> Required to draw
+// object (Graphic Model Pointer)
+struct ArcGMP{
+  GLuint ID; // VAO (Vertex Data)
+  ArcGC set; // Material, texture, & bounds (indices)
+};
+
+
+struct ArcGOD{
+  ArcGMP model;
+  ArcMatrix transformMatrix;
+};
+
+#endif

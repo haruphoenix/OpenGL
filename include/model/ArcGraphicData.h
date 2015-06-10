@@ -1,0 +1,110 @@
+#ifndef ARC_GRAPHIC_DATA
+#define ARC_GRAPHIC_DATA
+
+#include "ArcGMD.h"  // Graphic Model Data   (General   Model)
+#include "ArcGOD.h"  // Graphic Object Data  (Specific Object)
+#include "ArcGameObject.h"
+#include "ArcTexture.h"
+#include <map>
+#include <vector>
+#include <string>
+
+/*************************************************************************
+ *                                                                       *
+ *                             GRAPHIC DATA                              *
+ *                                                                       *
+ *          Contains all of the graphic data in the game model           *
+ *                                                                       *
+ *************************************************************************/
+class ArcGraphicData{
+
+ public:
+
+  ArcGraphicData();
+  ~ArcGraphicData();
+
+  // -------------------------------Window--------------------------------
+  // Change the dimensions of the window
+  void resizeWindow(int x, int y);
+  bool windowChange(int& x, int& y);
+
+  // ----------------------------Model Loading----------------------------
+  // Models to upload onto the GPU at the start of a program
+  void loadModel(const char* filename, std::string name);
+  //void loadModel(ArcGMD& model, std::string name); // Name of the model
+  std::map<std::string, ArcGMD*>& getData() { return mModels; };
+
+  // --------------------------Model Registering--------------------------
+  // Registers and associates a name with a given graphical model
+  void registerModel(ArcGMP GMP, std::string name);
+
+  // ---------------------------Texture Loading---------------------------
+  // Textures to upload onto the GPU at the start of a program
+  void loadTexture(const char* filename, std::string name);
+  std::map<std::string, ArcTexture*>& getTextures() { return mTextures; };
+
+  // -------------------------Texture Registering-------------------------
+  // Registers and associates a name with a given texture
+  void registerTexture(GLuint texture, std::string name);
+
+  // --------------------------Object Registering-------------------------
+  // Ties a game object to one of the registered models
+  void registerObject(ArcGameObject* object);
+
+  // ---------------------------Object Updating---------------------------
+  // Use to update the graphics for the object which has changed state
+  void update(ArcGameObject* object);
+
+  // -----------------------------Lighting--------------------------------
+  void setLight(int number, ArcLight light);
+  ArcLight* getLights(void) { return mLights; };
+
+  // ------------------------Setting Camera Object------------------------
+  void setCamera(ArcGameObject* object);
+  ArcMatrix& getCameraMatrix() { return mCameraMatrix; };
+
+  // ------------------------Graphic Object Access------------------------
+  // Returns vector of objects to draw to the screen
+  std::vector<ArcGOD>& objects() { return mObjects; };
+
+
+
+ private:
+
+  // -------------------------------Window--------------------------------
+  int mWindowX;
+  int mWindowY;
+  bool mWindowChange;
+
+  // ----------------------------Model Loading----------------------------
+  // Map of model names to model data (E.g. Vertex Data etc)
+  std::map<std::string, ArcGMD*> mModels;
+
+  // --------------------------Model Referencing--------------------------
+  // The set of model IDs on the GPU to reference
+  std::map<std::string, ArcGMP> mIDMap;
+
+  // ---------------------------Texture Loading---------------------------
+  // Map of texture names to texture data 
+  std::map<std::string, ArcTexture*> mTextures;
+
+  // -------------------------Texture Referencing-------------------------
+  // The set of texture IDs on the GPU to reference
+  std::map<std::string, GLuint> mTexMap;  
+
+  // -------------------------Object Referencing--------------------------
+  // A registered object to draw. Contains a reference to a model
+  // and a transform matrix for that model
+  std::vector<ArcGOD> mObjects;
+
+  // --------------------------------Camera-------------------------------
+  ArcGOD* mCamera;
+  ArcMatrix mCameraMatrix;
+
+  // --------------------------------Lighting------------------------------
+  ArcLight mLights[10];
+
+  ArcGMP NO_MODEL;
+};
+
+#endif
