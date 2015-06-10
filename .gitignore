@@ -36,3 +36,4 @@
 # Object Files
 *.arcData
 *.obj
+*.mtl
