@@ -156,16 +156,16 @@ void ArcGraphicData::update(ArcGameObject* object)
   RotateAboutZ(&(graphicObjectData->transformMatrix), 
 	       DegreesToRadians(object->rotation().z));
   TranslateMatrix(&(graphicObjectData->transformMatrix),
-		  object->location().x, object->location().y,
-		  object->location().z);
+		  object->position().x, object->position().y,
+		  object->position().z);
   
   if (graphicObjectData != mCamera) return;
   // Camera
   // Translate First
   mCameraMatrix = IDENTITY_MATRIX;
   TranslateMatrix(&mCameraMatrix,
-		  -object->location().x, -object->location().y,
-		  -object->location().z);
+		  -object->position().x, -object->position().y,
+		  -object->position().z);
   RotateAboutY(&mCameraMatrix, 
 	       DegreesToRadians(object->rotation().y));
   RotateAboutX(&mCameraMatrix, 

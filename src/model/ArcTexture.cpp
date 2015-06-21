@@ -18,11 +18,19 @@ ArcTexture::ArcTexture(std::string filename)
   std::string prefix1 = "data/textures/plants/";
   std::string prefix2 = "data/textures/structures/";
   std::string prefix3 = "data/textures/misc/";
+  std::string prefix4 = "data/textures/creatures/";
+  std::string prefix5 = "data/textures/background/";
 
   // Load Surface
   mSurface = IMG_Load((prefix1 + filename).c_str());
   if (mSurface == NULL) mSurface = IMG_Load((prefix2 + filename).c_str());
-  if (mSurface == NULL) mSurface = IMG_Load((prefix3 + filename).c_str()); 
+  if (mSurface == NULL) mSurface = IMG_Load((prefix3 + filename).c_str());
+  if (mSurface == NULL) mSurface = IMG_Load((prefix4 + filename).c_str());
+  if (mSurface == NULL) mSurface = IMG_Load((prefix5 + filename).c_str());
+  if (mSurface == NULL){
+    mSurface = IMG_Load((prefix3 + "no_texture.jpg").c_str());
+    std::cout << "Couldn\'t load " << filename << std::endl;
+  }
   if (mSurface == NULL) std::cout << "IMG_LOAD Failed\n";       
 
   // Check Extension

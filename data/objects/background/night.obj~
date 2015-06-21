@@ -1,0 +1,74 @@
+# This is a test - using different materials
+mtllib sky.mtl
+
+# Vertices
+
+# Front
+
+# Top                  1 2
+v -10.0  10.0  10.0
+v  10.0  10.0  10.0
+
+# Bottom               3 4
+v -10.0 -10.0  10.0
+v  10.0 -10.0  10.0
+
+# Back
+
+# Top                  5 6
+v -10.0  10.0 -10.0
+v  10.0  10.0 -10.0
+
+# Bottom               7 8
+v -10.0 -10.0 -10.0
+v  10.0 -10.0 -10.0
+
+# Texture Coordinates
+# Bottom Left      1
+vt 0.01 0.01
+# Bottom Right     2
+vt 0.99 0.01
+# Top Left         3
+vt 0.01 0.99
+# Top Right        4
+vt 0.99 0.99
+
+# Normals
+# Forward          1
+vn  0.0  0.0  1.0
+# Backward         2
+vn  0.0  0.0 -1.0
+# Left             3
+vn -1.0  0.0  0.0
+# Right            4
+vn  1.0  0.0  0.0
+# Up               5
+vn  0.0  1.0  0.0
+# Down             6
+vn  0.0 -1.0  0.0
+
+# Faces
+# Front
+usemtl front
+f 3/1/1 1/3/1 4/2/1
+f 4/2/1 1/3/1 2/4/1
+# Back
+usemtl back
+f 8/1/2 6/3/2 7/2/2
+f 7/2/2 6/3/2 5/4/2
+# Left
+usemtl left
+f 7/1/3 5/3/3 3/2/3
+f 3/2/3 5/3/3 1/4/3
+# Right
+usemtl right
+f 4/1/4 2/3/4 8/2/4
+f 8/2/4 2/3/4 6/4/4
+# Top
+usemtl top
+f 1/1/5 5/3/5 2/2/5
+f 2/2/5 5/3/5 6/4/5
+# Bottom
+usemtl bottom
+f 3/1/6 4/3/6 7/2/6
+f 7/2/6 4/3/6 8/4/6

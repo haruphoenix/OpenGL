@@ -3,6 +3,7 @@
 
 #include "ArcControlData.h"
 #include "ArcGraphicData.h"
+#include "ArcPhysics.h"
 
 /*****************************************************
  * Contains the state of all aspects of the game
@@ -23,6 +24,7 @@ class ArcModel{
  private:
   ArcControlData mControls; // Updated by Controller
   ArcGraphicData mGraphics; // Displayed by Graphic Engine
+  ArcPhysics     mPhysics;  // Controls Physics
   bool mExit;               // Valid state to quit
   void checkInput();        // Check ControlData for input
   std::vector<ArcGameObject*> mObjects; // Objects in the game

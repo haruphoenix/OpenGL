@@ -1,0 +1,43 @@
+/************************************************************************
+ * Physics Engine - Makes sure objects do what they are supposed to do
+ ************************************************************************/
+#include "ArcPhysicsEngine.h"
+#include "ArcGameObject.h"
+#include <vector>
+
+
+/************************************************************************
+ * Constructor for physics engine
+ ************************************************************************/
+ArcPhysicsEngine::ArcPhysicsEngine()
+{
+}
+
+/************************************************************************
+ * Destructor for physics engine
+ ************************************************************************/
+ArcPhysicsEngine::~ArcPhysicsEngine()
+{
+}
+
+
+/************************************************************************
+ * Registers an object to have physics apply to it
+ ************************************************************************/
+void ArcPhysicsEngine::register(ArcGameObject* object)
+{
+  mObjects.push_back(object);
+}
+
+/************************************************************************
+ * Updates all objects
+ * Changes velocity based on accelleration
+ * Slows accelleration (friction)
+ * Further changes velocity and accelleration based on collision
+ * detection
+ ************************************************************************/
+void ArcPhysicsEngine::update()
+{
+
+}
+

@@ -38,15 +38,15 @@ ArcGraphicData* ArcModel::getGraphics(){
 }
 
 /******************************************************
- * Initializes model state
+ * Initializes models
  ******************************************************/
 void ArcModel::loadModels(){
   mGraphics.loadModel("data/models/structures/houseX.arcData", "house");
   mGraphics.loadModel("data/models/plants/treeX.arcData", "tree1");
-  mGraphics.loadModel("data/models/plants/grass.arcData", "grass");
-  mGraphics.loadModel("data/models/misc/dirt.arcData", "dirt");
   mGraphics.loadModel("data/models/misc/lamppost.arcData", "lamppost");
   mGraphics.loadModel("data/models/structures/chapel.arcData", "chapel");
+  mGraphics.loadModel("data/models/background/night.arcData", "sky");
+  mGraphics.loadModel("data/models/background/grass1.arcData", "grass1");
 }
 
 /******************************************************
@@ -54,47 +54,55 @@ void ArcModel::loadModels(){
  ******************************************************/
 void ArcModel::loadObjects(){
 
+  // make sky
+  ArcGameObject* sky = new ArcGameObject("sky");
+  sky->size() = 30;
+  mGraphics.registerObject(sky);
+  mObjects.push_back(sky);
+
   // Set up House
   ArcGameObject* house = new ArcGameObject("house");
   house->size() = .05;
-  house->location().z -= 50;
+  house->position().z -= 50;
+  house->dimensions().y = 15;
+  house->dimensions().x = 28;
+  house->dimensions().z = 25;
+  mPhysics.registerObject(house);
   mGraphics.registerObject(house);
   mObjects.push_back(house);
 
   ArcGameObject* chapel = new ArcGameObject("chapel");
   chapel->size() = .05;
-  chapel->location().z += 80;
-  chapel->location().x += 40;
+  chapel->position().z += 80;
+  chapel->position().x += 40;
   chapel->rotation().y = 290;
+  chapel->dimensions().x = 50;
+  chapel->dimensions().y = 50;
+  chapel->dimensions().z = 50;
+  //mPhysics.registerObject(chapel); // Collision detection still can't handle rotation
   mGraphics.registerObject(chapel);
   mObjects.push_back(chapel);
 
+  ArcGameObject* ground = new ArcGameObject();
+  ground->dimensions().x = 1000;
+  ground->dimensions().z = 1000;
+  mPhysics.registerObject(ground);
 
   int size = 50;
   int halfSize = size / 2;
   for (int i = 0; i < size; i++){
     for (int j = 0; j < size; j++){
-      ArcGameObject* dirt = new ArcGameObject("dirt");
-      dirt->location().z = (i - halfSize) * 8;
-      dirt->location().x = (j - halfSize) * 8;
-      dirt->size() = 8;
-      mGraphics.registerObject(dirt);
-      mObjects.push_back(dirt);
-    }
-  }
-
-  /*
-  for (int i = 0; i < size; i++)
-    for (int j = 0; j < size; j++){
-      ArcGameObject* grass = new ArcGameObject("grass");
-      grass->location().z = i - halfSize;
-      grass->location().x = j - halfSize;
-      grass->location().y += 1;
-      grass->rotation().y = rand() % 360;
+      ArcGameObject* grass = new ArcGameObject("grass1");
+      grass->position().z = (i - halfSize) * 8;
+      grass->position().x = (j - halfSize) * 8;
+      grass->size() = 8;
+      //grass->dimensions().x = 8;
+      //grass->dimensions().z = 8;
+      //mPhysics.registerObject(grass);
       mGraphics.registerObject(grass);
       mObjects.push_back(grass);
     }
-*/
+  }
   
   ArcGameObject* lamppost = new ArcGameObject("lamppost");
   lamppost->size() = 8;
@@ -104,8 +112,8 @@ void ArcModel::loadObjects(){
   for (int i = 0; i < 10; i++){
     ArcGameObject* tree = new ArcGameObject("tree1");
     tree->size() = 10;
-    tree->location().x = (((rand() % 2) * 300) - 150) + ((rand() % 200) - 100);
-    tree->location().z = (((rand() % 2) * 300) - 150) + ((rand() % 200) - 100);
+    tree->position().x = (((rand() % 2) * 300) - 150) + ((rand() % 200) - 100);
+    tree->position().z = (((rand() % 2) * 300) - 150) + ((rand() % 200) - 100);
     //tree->rotation().x = 90;          // This is weird
     mGraphics.registerObject(tree);
     mObjects.push_back(tree);
@@ -113,18 +121,23 @@ void ArcModel::loadObjects(){
 
   // Setup Camera (For some reason, the camera must be done last...)
   ArcGameObject* camera  = new ArcGameObject();
+  camera->dimensions().x = 1;
+  camera->dimensions().z = 1;
+  camera->dimensions().y = 6;
+  mPhysics.registerObject(camera);
   mGraphics.registerObject(camera);
   mObjects.push_back(camera);
   mGraphics.setCamera(camera);
   setControlObject(camera);
 
-  mControlObject->location().z += 10;
-  mControlObject->location().y += 5;
+  mControlObject->position().z += 10;
+  mControlObject->position().y += 9;
   mGraphics.update(mControlObject);
 
-  ArcLight lamp = { 0, 10, 0,   1, 0.8, 0.5 }; // light yellow
-  ArcLight moon = { 0, 30, 0, 0.5, 0.5, 1.0 };
-  mGraphics.setLight(1,  moon);
+  // Create Lights
+  ArcLight lamp = { 0, 10,    0,   1, 0.8, 0.5 };  // light yellow
+  ArcLight moon = { 30, 150, 250, 0.5, 0.5, 0.5 }; // silver
+  mGraphics.setLight(1, moon);
   mGraphics.setLight(2, lamp);
 
   update();
@@ -138,6 +151,8 @@ void ArcModel::loadObjects(){
  ******************************************************/
 void ArcModel::update(){
   checkInput();
+  mPhysics.update(mControlObject);
+  mGraphics.update(mControlObject);
 }
 
 /******************************************************
@@ -196,7 +211,7 @@ if (RIGHT & direction){
 
 normalize(movement);
 
-//movement *= 4;
+movement /= 4;
 //movement /= 10;
 
 // Calculate to keep movement same speed no matter frame rate
@@ -205,8 +220,10 @@ normalize(movement);
 // Apply to movement vector
 //movement *= framerateIndependentFactor;
 
-mControlObject->location() += movement;
+ movement.y = 0;
 
+//mControlObject->position() += movement;
+ mControlObject->posAccel() += movement;
 }
 
 /******************************************************
@@ -256,29 +273,23 @@ void ArcModel::checkInput(){
         mExit = true;
         break;
       case 'e':
-	// Simple
-	//mControlObject->location().z -= .001;
         movement |= FORWARD;
 	willMove = true;
 	break;
       case 's':
-	// Simple
-	//mControlObject->location().x -= .001;
 	willMove = true;
         movement |= LEFT;
         break;
       case 'd':
-	// Simple
-	//mControlObject->location().z += .001;
 	willMove = true;
         movement |= BACKWARD;
         break;
       case 'f':
-	// Simple
-	//mControlObject->location().x += .001;
 	willMove = true;
         movement |= RIGHT;
         break;
+      case 32: // space
+	mControlObject->posAccel().y += 0.5;
       default:
         break;
     }
@@ -296,7 +307,7 @@ void ArcModel::checkInput(){
   }
 
   if (movement) move(movement);
-  if (willMove) mGraphics.update(mControlObject);
+  //if (willMove) mGraphics.update(mControlObject);
 
   return;
 }

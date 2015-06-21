@@ -1,0 +1,21 @@
+/************************************************************************
+ * Physics Engine - Makes sure objects do what they are supposed to do
+ ************************************************************************/
+#ifndef ARC_PHYSICS_ENGINE
+#define ARC_PHYSICS_ENGINE
+#include <vector>
+#include "ArcGameObject.h"
+
+class ArcPhysicsEngine{
+ public:
+  ArcPhysicsEngine();
+  ~ArcPhysicsEngine();
+  void register(ArcGameObject* object);
+  void update();
+  void setGravity(float value) { mGravity = value; };
+ private:
+  std::vector<ArcGameObject*> mObjects;
+  float mGravity;
+};
+
+#endif
