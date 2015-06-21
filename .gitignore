@@ -27,13 +27,3 @@
 *.out
 *.app
 
-# Images
-*.tif
-*.jpg
-*.png
-*.tga
-
-# Object Files
-*.arcData
-*.obj
-*.mtl
