@@ -1,0 +1,34 @@
+newmtl top
+Ka 0.5 0.5 0.5
+Kd 0.5 0.5 0.5
+Ks 0.5 0.5 0.5
+map_Kd powderpeaknight_top.jpg
+
+newmtl left
+Ka 0.5 0.5 0.5
+Kd 0.5 0.5 0.5
+Ks 0.5 0.5 0.5
+map_Kd powderpeaknight_left.jpg
+
+newmtl right
+Ka 0.5 0.5 0.5
+Kd 0.5 0.5 0.5
+Ks 0.5 0.5 0.5
+map_Kd powderpeaknight_right.jpg
+
+newmtl front
+Ka 0.5 0.5 0.5
+Kd 0.5 0.5 0.5
+Ks 0.5 0.5 0.5
+map_Kd powderpeaknight_front.jpg
+
+newmtl back
+Ka 0.5 0.5 0.5
+Kd 0.5 0.5 0.5
+Ks 0.5 0.5 0.5
+map_Kd powderpeaknight_back.jpg
+
+newmtl bottom
+Ka 1.0 1.0 1.0
+Kd 0.5 0.5 0.5
+Ks 0.5 0.5 0.5

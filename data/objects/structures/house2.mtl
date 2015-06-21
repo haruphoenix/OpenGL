@@ -1,0 +1,473 @@
+# Blender MTL File: 'None'
+# Material Count: 44
+
+newmtl Branch
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\tree_deciduous_01a_trunk.jpg
+
+newmtl Leaf_1
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd H:\\mh03\\textures\\_ivy_d.tga
+map_d H:\\\\mh03\\\\textures\\\\_ivy_o.tga
+
+newmtl Leaf_10
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd H:\\mh03\\textures\\_ivy_d.tga
+map_d H:\\\\mh03\\\\textures\\\\_ivy_o.tga
+
+newmtl Leaf_11
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd H:\\mh03\\textures\\_ivy_d.tga
+map_d H:\\\\mh03\\\\textures\\\\_ivy_o.tga
+
+newmtl Material__10
+Ns 11.764706
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wood.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wood_ddn.jpg
+
+newmtl Material__11
+Ns 23.529412
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\PlasterWhiteDirty0030_M.jpg
+
+newmtl Material__13
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\windows.jpg
+
+newmtl Material__14
+Ns 31.372549
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wall.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\wall.jpg
+
+newmtl Material__15
+Ns 7.843137
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\brudoorupper02.dds
+map_Bump H:\\\\mh03\\\\textures\\\\brudoorupper02_n.dds
+
+newmtl Material__16
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\door_big.dds
+map_Bump H:\\\\mh03\\\\textures\\\\door_big_n.dds
+
+newmtl Material__17
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wood01.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wood01_n.dds
+
+newmtl Material__18
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wood01.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wood01_n.dds
+
+newmtl Material__2
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\roof_slate.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\roof_slate_bm_NRM.jpg
+
+newmtl Material__23
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.207059 0.109804 0.056471
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Material__24
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\windows.jpg
+
+newmtl Material__3
+Ns 7.843137
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\prioryroof01.dds
+map_Bump H:\\\\mh03\\\\textures\\\\prioryroof01_n.dds
+
+newmtl Material__30
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\PlasterWhiteDirty0030_M.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\PlasterWhiteDirty0030_M.jpg
+
+newmtl Material__32
+Ns 31.372549
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wall.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\wall.jpg
+
+newmtl Material__33
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wood01.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wood01_n.dds
+
+newmtl Material__34
+Ns 7.843137
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\prioryroof01.dds
+map_Bump H:\\\\mh03\\\\textures\\\\prioryroof01_n.dds
+
+newmtl Material__35
+Ns 7.843137
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\brudoorupper02.dds
+map_Bump H:\\\\mh03\\\\textures\\\\brudoorupper02_n.dds
+
+newmtl Material__36
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd H:\\mh03\\textures\\potted_plants.tga
+map_d H:\\\\mh03\\\\textures\\\\potted_plants.tga
+
+newmtl Material__37
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd H:\\mh03\\textures\\potted_plants.tga
+map_d H:\\\\mh03\\\\textures\\\\potted_plants.tga
+
+newmtl Material__38
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd H:\\mh03\\textures\\potted_plants.tga
+map_d H:\\\\mh03\\\\textures\\\\potted_plants.tga
+
+newmtl Material__39
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\tree_deciduous_01a_trunk.jpg
+
+newmtl Material__4
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wood01.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wood01_n.dds
+
+newmtl Material__40
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\tree_deciduous_01a_trunk.jpg
+
+newmtl Material__41
+Ns 21.568627
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\woodbarrel001.tga
+
+newmtl Material__42
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\standard_crates.tga
+
+newmtl Material__43
+Ns 13.725490
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\Slate-color.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\Slate-Bump_NRM.jpg
+
+newmtl Material__44
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wallplastertanint02.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wallplastertanint02_n.dds
+
+newmtl Material__46
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\PlasterWhiteDirty0070_M.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\PlasterWhiteDirty0070_M.jpg
+
+newmtl Material__5
+Ns 7.843137
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\PlasterWhiteDirty0030_M.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\PlasterWhiteDirty0030_M.jpg
+
+newmtl Material__53
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wood01.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wood01_n.dds
+
+newmtl Material__54
+Ns 11.764706
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wood.dds
+map_Bump H:\\\\mh03\\\\textures\\\\wood_ddn.jpg
+
+newmtl Material__55
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\windows_doors1.jpg
+
+newmtl Material__56
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\PlasterWhiteDirty0070_M.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\PlasterWhiteDirty0070_M.jpg
+
+newmtl Material__57
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\PlasterWhiteDirty0030_M.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\PlasterWhiteDirty0030_M.jpg
+
+newmtl Material__6
+Ns 31.372549
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\wall.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\wall.jpg
+
+newmtl Material__7
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\skstone.dds
+map_Bump H:\\\\mh03\\\\textures\\\\skstone_n.dds
+
+newmtl Material__8
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\PlasterWhiteDirty0030_M.jpg
+map_Bump H:\\\\mh03\\\\textures\\\\PlasterWhiteDirty0030_M.jpg
+
+newmtl _1___Default0
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd H:\\mh03\\textures\\potted_plants.tga
+map_d H:\\\\mh03\\\\textures\\\\potted_plants.tga
+
+newmtl _2___Default
+Ns 9.803922
+Ka 0.000000 0.000000 0.000000
+Kd 0.207059 0.062745 0.021961
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl _3___Default
+Ns 5.882353
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd H:\\mh03\\textures\\rf1xintstonea.dds
+map_Bump H:\\\\mh03\\\\textures\\\\rf1xintstonea_NRM.jpg
