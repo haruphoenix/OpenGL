@@ -47,6 +47,7 @@ void ArcModel::loadModels(){
   mGraphics.loadModel("data/models/structures/chapel.arcData", "chapel");
   mGraphics.loadModel("data/models/background/night.arcData", "sky");
   mGraphics.loadModel("data/models/background/grass1.arcData", "grass1");
+  mGraphics.loadModel("data/models/creatures/cat.arcData", "cat");
 }
 
 /******************************************************
@@ -70,6 +71,15 @@ void ArcModel::loadObjects(){
   mPhysics.registerObject(house);
   mGraphics.registerObject(house);
   mObjects.push_back(house);
+
+  ArcGameObject* cat = new ArcGameObject("cat");
+  cat->size() = 3;
+  cat->position().z -= 50;
+  cat->position().y = 26;
+  cat->position().x -= 18;
+  cat->rotation().y = 90;
+  mGraphics.registerObject(cat);
+  mObjects.push_back(cat);
 
   ArcGameObject* chapel = new ArcGameObject("chapel");
   chapel->size() = .05;
@@ -106,6 +116,10 @@ void ArcModel::loadObjects(){
   
   ArcGameObject* lamppost = new ArcGameObject("lamppost");
   lamppost->size() = 8;
+  lamppost->dimensions().z = 0.5;
+  lamppost->dimensions().x = 0.5;
+  lamppost->dimensions().y = 12;
+  mPhysics.registerObject(lamppost);
   mGraphics.registerObject(lamppost);
   mObjects.push_back(lamppost);
 
@@ -131,7 +145,7 @@ void ArcModel::loadObjects(){
   setControlObject(camera);
 
   mControlObject->position().z += 10;
-  mControlObject->position().y += 9;
+  mControlObject->position().y += 15;
   mGraphics.update(mControlObject);
 
   // Create Lights
