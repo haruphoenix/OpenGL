@@ -52,6 +52,14 @@ struct ArcLight{
   float b;
 };
 
+// Holds Fog Data
+struct ArcFog{
+  float r;
+  float g;
+  float b;
+  float a;
+};
+
 #include <vector>
 typedef std::vector<ArcGraphicController> ArcGC;
 typedef std::vector<ArcTextureNameSet> ArcTexSet;

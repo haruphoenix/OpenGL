@@ -33,6 +33,7 @@ class ArcGraphicData{
   void loadModel(const char* filename, std::string name);
   //void loadModel(ArcGMD& model, std::string name); // Name of the model
   std::map<std::string, ArcGMD*>& getData() { return mModels; };
+  void clearData();
 
   // --------------------------Model Registering--------------------------
   // Registers and associates a name with a given graphical model
@@ -62,13 +63,16 @@ class ArcGraphicData{
   // ------------------------Setting Camera Object------------------------
   void setCamera(ArcGameObject* object);
   ArcMatrix& getCameraMatrix() { return mCameraMatrix; };
+  ArcMatrix& getCameraLocationMatrix() { return mCameraLocationMatrix; };
 
   // ------------------------Graphic Object Access------------------------
   // Returns vector of objects to draw to the screen
   std::vector<ArcGOD>& objects() { return mObjects; };
 
-
-
+  // ------------------------------ Fog ----------------------------------
+  ArcFog* getFog() { return &mFog; };
+  void setFog(float r, float g, float b, float a);
+  
  private:
 
   // -------------------------------Window--------------------------------
@@ -100,9 +104,13 @@ class ArcGraphicData{
   // --------------------------------Camera-------------------------------
   ArcGOD* mCamera;
   ArcMatrix mCameraMatrix;
+  ArcMatrix mCameraLocationMatrix;
 
   // --------------------------------Lighting------------------------------
   ArcLight mLights[10];
+
+  // ---------------------------------- Fog -------------------------------
+  ArcFog mFog;
 
   ArcGMP NO_MODEL;
 };

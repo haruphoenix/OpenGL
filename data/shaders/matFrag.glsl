@@ -10,8 +10,11 @@ uniform sampler2D samplerKd;
 uniform sampler2D samplerKs;
 uniform float material[10];
 uniform float light[60]; // 6 * 10
+uniform float fog[4];
 
 uniform mat4 ModelMatrix;
+uniform mat4 ViewMatrix;
+uniform mat4 CameraMatrix;
 
 void main(void)
 {
@@ -66,8 +69,16 @@ void main(void)
   for (int i = 0; i < 10; i++)
       lightMap += vec4(brightness[i] * vec4(lightColors[i], 1));
 
-  out_Color = lightMap * diffuseTexture + (diffuse * diffuseTexture);
-  //out_Color = vec4(1.0, 1.0, 1.0, 1.0);
+  // Calculate Fog
+  vec3 cameraPosition = vec3(CameraMatrix * vec4(1, 1, 1, 1));// * vec4(ex_Position, 1));
+  float distance = length(cameraPosition - fragPosition);
+  float scalar = clamp(fog[3] * (distance / 100), 0, 1);
+  vec4 fogEffect = vec4(fog[0], fog[1], fog[2], 1);// * scalar;
 
-  //out_Color = texture(sampler, ex_Texture) * ambient;
+  // General
+  out_Color = (lightMap * diffuseTexture + (diffuse * diffuseTexture));
+  // Add Fog
+  out_Color = ((out_Color * (1 - scalar)) + (fogEffect * scalar));
+  
+
  }

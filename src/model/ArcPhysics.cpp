@@ -126,7 +126,7 @@ bool ArcPhysics::collision(ArcGameObject* left, ArcGameObject* right)
 {
   if (left == right) return false; // Don't compare the same object
 
-  struct collisionChecker{
+  struct {
     float LA; float LB; float UA; float UB;
     bool checkCollision(){
       return (((LA <= LB) && (UA >= LB)) || // A Overlaps B
@@ -157,5 +157,6 @@ bool ArcPhysics::collision(ArcGameObject* left, ArcGameObject* right)
 	return true; // There was a collision
     }
   }
+
   return false; // There wasn't a collision
 }

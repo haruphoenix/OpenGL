@@ -101,9 +101,13 @@ void ArcEngine::update(){
 
   // Set Camera Location
   mShader.setView(mData->getCameraMatrix());
+  mShader.setCameraLocation(mData->getCameraLocationMatrix());
 
   // Set Lights
   mShader.setLights(mData->getLights());
+
+  // Set Fog
+  mShader.setFog(mData->getFog());
 
   // Draw the objects
   std::vector<ArcGOD>* objects = &mData->objects();

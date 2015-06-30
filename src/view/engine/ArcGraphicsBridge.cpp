@@ -49,6 +49,8 @@ void ArcGraphicsBridge::loadGraphicData(ArcGraphicData& data)
     GMP.set = (i->second)->getSet();
     data.registerModel(GMP, i->first); // first = key (name)
   }  
+  data.clearData();
+  //std::cout << "Clearing Data\n";
 }
 
 /*******************************************************
@@ -77,16 +79,16 @@ void ArcGraphicsBridge::moveToGPU(ArcGMD& data, ArcGMP& GMP){
   // Send Data over to GPU    
   glBufferData(GL_ARRAY_BUFFER, BufferSize, data.getVertices(), 
 	       GL_STATIC_DRAW);
-  // Vertices are at index 0 in VAO -> and in shader
+  // Vertices are at index 0 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, 0);
-  // Textures are at index 1 in VAO -> and in shader
+  // Textures are at index 1 
   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, VERTEX_SIZE, 
 			(GLvoid*)TEX_OFFSET);
-  // Normals are at index 2 in VAO -> and in shader
+  // Normals are at index 2 
   glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, VERTEX_SIZE, 
   			(GLvoid*)NORM_OFFSET);
 
-  // Enable Vertices, Textures, and Normals in VAO
+  // Enable Vertices, Textures, and Normals
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
   glEnableVertexAttribArray(2);
@@ -214,6 +216,7 @@ void ArcGraphicsBridge::removeObject(ArcGMP& GMP){
   glBindVertexArray(GMP.ID);
   
   // Disable attributes in reverse order
+  glDisableVertexAttribArray(2);
   glDisableVertexAttribArray(1);
   glDisableVertexAttribArray(0);
 

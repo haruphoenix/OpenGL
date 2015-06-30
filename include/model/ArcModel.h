@@ -30,6 +30,8 @@ class ArcModel{
   std::vector<ArcGameObject*> mObjects; // Objects in the game
   ArcGameObject* mControlObject;
   void move(char direction);
+  ArcGameObject* createObject(std::string name);
+  ArcGameObject* createObject();
 };
 
 #endif

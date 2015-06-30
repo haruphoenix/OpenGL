@@ -6,6 +6,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <iostream> // Debug
+#include <cstdio>
 
 /******************************************************
  * Constructor for model.
@@ -51,18 +52,49 @@ void ArcModel::loadModels(){
 }
 
 /******************************************************
+ * Creates a new game object (No Parameters)
+ ******************************************************/
+ArcGameObject* ArcModel::createObject()
+{
+  ArcGameObject* object;
+  try {
+    object = new ArcGameObject();
+  } catch (std::bad_alloc) {
+    std::cout << "Error: Could not create game object\n";
+    std::exit(1);
+  }
+  mObjects.push_back(object);
+  return object;
+}
+
+/******************************************************
+ * Creates a new game object
+ ******************************************************/
+ArcGameObject* ArcModel::createObject(std::string name)
+{
+  ArcGameObject* object;
+  try {
+    object = new ArcGameObject(name);
+  } catch (std::bad_alloc) {
+    std::cout << "Error: Could not create game object\n";
+    std::exit(1);
+  }
+  mObjects.push_back(object);
+  return object;
+}
+
+/******************************************************
  * Initializes object state
  ******************************************************/
 void ArcModel::loadObjects(){
 
   // make sky
-  ArcGameObject* sky = new ArcGameObject("sky");
+  ArcGameObject* sky = createObject("sky");
   sky->size() = 30;
   mGraphics.registerObject(sky);
-  mObjects.push_back(sky);
 
   // Set up House
-  ArcGameObject* house = new ArcGameObject("house");
+  ArcGameObject* house = createObject("house");
   house->size() = .05;
   house->position().z -= 50;
   house->dimensions().y = 15;
@@ -70,18 +102,16 @@ void ArcModel::loadObjects(){
   house->dimensions().z = 25;
   mPhysics.registerObject(house);
   mGraphics.registerObject(house);
-  mObjects.push_back(house);
 
-  ArcGameObject* cat = new ArcGameObject("cat");
+  ArcGameObject* cat = createObject("cat");
   cat->size() = 3;
   cat->position().z -= 50;
   cat->position().y = 26;
   cat->position().x -= 18;
   cat->rotation().y = 90;
   mGraphics.registerObject(cat);
-  mObjects.push_back(cat);
 
-  ArcGameObject* chapel = new ArcGameObject("chapel");
+  ArcGameObject* chapel = createObject("chapel");
   chapel->size() = .05;
   chapel->position().z += 80;
   chapel->position().x += 40;
@@ -89,11 +119,10 @@ void ArcModel::loadObjects(){
   chapel->dimensions().x = 50;
   chapel->dimensions().y = 50;
   chapel->dimensions().z = 50;
-  //mPhysics.registerObject(chapel); // Collision detection still can't handle rotation
+  mPhysics.registerObject(chapel); // Collision detection still can't handle rotation
   mGraphics.registerObject(chapel);
-  mObjects.push_back(chapel);
 
-  ArcGameObject* ground = new ArcGameObject();
+  ArcGameObject* ground = createObject();
   ground->dimensions().x = 1000;
   ground->dimensions().z = 1000;
   mPhysics.registerObject(ground);
@@ -102,45 +131,38 @@ void ArcModel::loadObjects(){
   int halfSize = size / 2;
   for (int i = 0; i < size; i++){
     for (int j = 0; j < size; j++){
-      ArcGameObject* grass = new ArcGameObject("grass1");
+      ArcGameObject* grass = createObject("grass1");
       grass->position().z = (i - halfSize) * 8;
       grass->position().x = (j - halfSize) * 8;
       grass->size() = 8;
-      //grass->dimensions().x = 8;
-      //grass->dimensions().z = 8;
-      //mPhysics.registerObject(grass);
       mGraphics.registerObject(grass);
-      mObjects.push_back(grass);
     }
   }
   
-  ArcGameObject* lamppost = new ArcGameObject("lamppost");
+  ArcGameObject* lamppost = createObject("lamppost");
   lamppost->size() = 8;
   lamppost->dimensions().z = 0.5;
   lamppost->dimensions().x = 0.5;
   lamppost->dimensions().y = 12;
   mPhysics.registerObject(lamppost);
   mGraphics.registerObject(lamppost);
-  mObjects.push_back(lamppost);
 
   for (int i = 0; i < 10; i++){
-    ArcGameObject* tree = new ArcGameObject("tree1");
+    ArcGameObject* tree = createObject("tree1");
     tree->size() = 10;
     tree->position().x = (((rand() % 2) * 300) - 150) + ((rand() % 200) - 100);
     tree->position().z = (((rand() % 2) * 300) - 150) + ((rand() % 200) - 100);
     //tree->rotation().x = 90;          // This is weird
     mGraphics.registerObject(tree);
-    mObjects.push_back(tree);
   }
 
   // Setup Camera (For some reason, the camera must be done last...)
-  ArcGameObject* camera  = new ArcGameObject();
+  ArcGameObject* camera  = createObject();
   camera->dimensions().x = 1;
   camera->dimensions().z = 1;
   camera->dimensions().y = 6;
   mPhysics.registerObject(camera);
   mGraphics.registerObject(camera);
-  mObjects.push_back(camera);
   mGraphics.setCamera(camera);
   setControlObject(camera);
 
@@ -153,6 +175,9 @@ void ArcModel::loadObjects(){
   ArcLight moon = { 30, 150, 250, 0.5, 0.5, 0.5 }; // silver
   mGraphics.setLight(1, moon);
   mGraphics.setLight(2, lamp);
+
+  // Set Fog
+  mGraphics.setFog(0.4, 0.4, 0.4, 0.5);
 
   update();
 
@@ -303,7 +328,9 @@ void ArcModel::checkInput(){
         movement |= RIGHT;
         break;
       case 32: // space
-	mControlObject->posAccel().y += 0.5;
+	//mControlObject->posAccel().y += 0.5;
+	if (mControlObject->posVeloc().y == 0)
+	  mControlObject->posAccel().y += 2;
       default:
         break;
     }

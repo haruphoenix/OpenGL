@@ -21,6 +21,23 @@ ArcGraphicData::ArcGraphicData(){
   // Turn Off Lights
   ArcLight off = { 0, 0, 0, 0, 0, 0 };
   for (int i = 0; i < ARC_MAX_LIGHTS; i++) mLights[i] = off;
+  
+  // Test
+  /*
+  for (int i = 0; i < 10; i++){
+    std::cout << "Light " << i << " is "
+	      << mLights[i].x << " "
+	      << mLights[i].y << " "
+	      << mLights[i].z << " "
+	      << mLights[i].r << " "
+	      << mLights[i].g << " "
+	      << mLights[i].b << std::endl;
+  }
+  */
+
+  // Set Fog to be off
+  ArcFog fog = { 0, 0, 0, 0 }; // Gray
+  mFog = fog;
 }
 
 /*****************************************************
@@ -28,11 +45,6 @@ ArcGraphicData::ArcGraphicData(){
  *****************************************************/
 ArcGraphicData::~ArcGraphicData()
 {
-  // Delete models
-  std::map<std::string, ArcGMD*>::iterator i;
-  for (i = mModels.begin(); i != mModels.end(); ++i){
-    delete i->second;
-  }
 }
 
 /*****************************************************
@@ -70,7 +82,25 @@ bool ArcGraphicData::windowChange(int& x, int& y)
  ***********************************************************************/
 void ArcGraphicData::loadModel(const char* filename, std::string name)
 {
-  mModels[name] = new ArcGMD(filename);
+  try {
+   mModels[name] = new ArcGMD(filename);
+  } catch (std::bad_alloc) {
+    std::cout << "Error: Could not allocate memory for ArcGMD in "
+	      << "load model\n";
+    exit(1);
+  }
+}
+
+/***********************************************************************
+ * Removes Graphic Data
+ ***********************************************************************/
+void ArcGraphicData::clearData()
+{
+  // Delete models
+  std::map<std::string, ArcGMD*>::iterator i;
+  for (i = mModels.begin(); i != mModels.end(); ++i){
+    delete i->second;
+  }
 }
 
 // --------------------------Model Registering--------------------------
@@ -93,6 +123,17 @@ void ArcGraphicData::setLight(int number, ArcLight light){
 }
 
 
+/***********************************************************************
+ * Sets The level of fog from the user's perspective
+ ***********************************************************************/
+void ArcGraphicData::setFog(float r, float g, float b, float a)
+{
+  mFog.r = r;
+  mFog.g = g;
+  mFog.b = b;
+  mFog.a = a;
+}
+
 // ---------------------------Texture Loading---------------------------
 // Textures to upload onto the GPU at the start of a program
 
@@ -102,7 +143,13 @@ void ArcGraphicData::setLight(int number, ArcLight light){
  ***********************************************************************/
 void ArcGraphicData::loadTexture(const char* filename, std::string name)
 {
-  mTextures[name] = new ArcTexture(filename);
+  try {
+    mTextures[name] = new ArcTexture(filename);
+  } catch (std::bad_alloc) {
+    std::cout << "Error: Could not allocate memory for ArcGMD in "
+	      << "load model\n";
+    exit(1);
+  }
 }
 
 // -------------------------Texture Registering-------------------------
@@ -136,6 +183,19 @@ void ArcGraphicData::registerObject(ArcGameObject* object)
  ***********************************************************************/
 void ArcGraphicData::update(ArcGameObject* object)
 {
+  /*
+  std::cout << "Ptr in Graphic Data = " << (long)mLights << std::endl;
+  for (int i = 0; i < 10; i++){
+    std::cout << "Light " << i << " is "
+	      << mLights[i].x << " "
+	      << mLights[i].y << " "
+	      << mLights[i].z << " "
+	      << mLights[i].r << " "
+	      << mLights[i].g << " "
+	      << mLights[i].b << std::endl;
+  }
+  */
+
   // Retrieve object graphics
   ArcGOD* graphicObjectData = &(mObjects[object->ID]);
 
@@ -162,6 +222,7 @@ void ArcGraphicData::update(ArcGameObject* object)
   if (graphicObjectData != mCamera) return;
   // Camera
   // Translate First
+  mCameraLocationMatrix = graphicObjectData->transformMatrix;
   mCameraMatrix = IDENTITY_MATRIX;
   TranslateMatrix(&mCameraMatrix,
 		  -object->position().x, -object->position().y,

@@ -22,14 +22,17 @@ class ArcShader{
   void use();
   void draw(ArcGOD& object);
   void setView(ArcMatrix view);
+  void setCameraLocation(ArcMatrix cameraLocation);
   void setProjection(ArcMatrix projection);
   void setLights(ArcLight* lights);
+  void setFog(ArcFog* fog);
  private:
   GLuint loadShader(const char* filename, GLenum shader_type);
   std::list<GLuint> mShaders;
   GLuint mProgramId;
   GLuint mModelMatrix;
-  GLuint mViewMatrix;
+  GLuint mViewMatrix;       // View Matrix from camera
+  GLuint mCameraMatrix;     // Position of the camera
   GLuint mProjectionMatrix;
   GLuint mKaTexture;
   GLuint mKdTexture;
@@ -37,6 +40,7 @@ class ArcShader{
   GLuint mMaterial;
   GLuint mLights;
   int    mNumLights;
+  GLuint mFog;
 };
 
 #endif

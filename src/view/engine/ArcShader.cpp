@@ -99,11 +99,20 @@ void ArcShader::draw(ArcGOD& object){
 }  
 
 /*******************************************************
- * Sets the view matrix (I.e. The camera location)
+ * Sets the view matrix 
  *******************************************************/
 void ArcShader::setView(ArcMatrix view)
 {
   glUniformMatrix4fv(mViewMatrix, 1, GL_FALSE, view.m);
+}
+
+
+/*******************************************************
+ * The model matrix of the camera
+ *******************************************************/
+void ArcShader::setCameraLocation(ArcMatrix cameraLocation)
+{
+  glUniformMatrix4fv(mCameraMatrix, 1, GL_FALSE, cameraLocation.m);
 }
 
 /*******************************************************
@@ -119,8 +128,30 @@ void ArcShader::setProjection(ArcMatrix projection)
  *******************************************************/
 void ArcShader::setLights(ArcLight* lights)
 {
+  /*
+  std::cout << "Ptr In Shader = " << (long)lights << std::endl;
+  for (int i = 0; i < 10; i++){
+    std::cout << "Light " << i << " is ";
+    std::cout << lights[i].x << " "
+  	      << lights[i].y << " "
+  	      << lights[i].z << " "
+  	      << lights[i].r << " "
+  	      << lights[i].g << " "
+  	      << lights[i].b << std::endl;
+  }
+  */
+
   // 24 is the size of a ArcLight - float(4) * numFloatsInStruct(6)
   glUniform1fv(mLights, ARC_MAX_LIGHTS * 24, (float*)lights);
+}
+
+/*******************************************************
+ * A simple way to get a shader from a file
+ *******************************************************/
+void ArcShader::setFog(ArcFog* fog)
+{
+  // 4 values * float(4)
+  glUniform1fv(mFog, 16, (float*)fog);
 }
 
 /*******************************************************
@@ -162,6 +193,7 @@ void ArcShader::use(){
   mProjectionMatrix = glGetUniformLocation(mProgramId, "ProjectionMatrix");
   mModelMatrix = glGetUniformLocation(mProgramId, "ModelMatrix");
   mViewMatrix = glGetUniformLocation(mProgramId, "ViewMatrix");
+  mCameraMatrix = glGetUniformLocation(mProgramId, "CameraMatrix");
   // Texture Samplers
   mKaTexture = glGetUniformLocation(mProgramId, "samplerKa");
   mKdTexture = glGetUniformLocation(mProgramId, "samplerKd");
@@ -175,6 +207,7 @@ void ArcShader::use(){
   mMaterial = glGetUniformLocation(mProgramId, "material");
 
   mLights = glGetUniformLocation(mProgramId, "light");
+  mFog    = glGetUniformLocation(mProgramId, "fog");
 
   // Check for Errors
   ErrorCheckValue = glGetError();
